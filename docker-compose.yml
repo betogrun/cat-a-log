@@ -1,0 +1,55 @@
+services:
+
+  db:
+    image: postgres:14
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgres/data
+
+  redis:
+    image: redis
+    volumes:
+      - redis_data:/data
+    ports:
+      - 6379:6379
+
+  css:
+    build: .
+    entrypoint: ./entrypoint-dev.sh
+    tty: true
+    command: "bundle exec rails tailwindcss:watch"
+    volumes:
+      - .:/usr/src/cat-a-log
+      - bundle:/usr/local/bundle
+
+  web:
+    build: .
+    entrypoint: ./entrypoint-dev.sh
+    command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/usr/src/cat-a-log
+      - bundle:/usr/local/bundle
+    ports:
+      - 3000:3000
+    environment:
+      - RAILS_MAX_THREADS=5
+      - RAILS_ENV=development
+      - RACK_ENV=development
+      - REDIS_PERSISTENCE_URL=redis://redis:6379
+      - DATABASE_HOST=db
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=password
+    depends_on:
+      - db
+      - redis
+      - css
+
+volumes:
+  postgres_data:
+  redis_data:
+  bundle:
