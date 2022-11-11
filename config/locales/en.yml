@@ -31,3 +31,6 @@
 
 en:
   hello: "Hello world"
+  cat:
+    not_found: 'Cat not found!'
+    destroyed: 'Cat was successfully destroyed.'

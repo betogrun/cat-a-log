@@ -16,7 +16,7 @@ class Cat
 
       cat = repository.create_cat(name, breed, favorite_quote)
 
-      Success(result: { cat: cat })
+      Success(result: { cat: })
     end
   end
 end
