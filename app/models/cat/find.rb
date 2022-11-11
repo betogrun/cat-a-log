@@ -10,7 +10,7 @@ class Cat
 
       return Failure(:not_found) unless cat
 
-      Success(result: { cat: cat })
+      Success(result: { cat: })
     end
   end
 end

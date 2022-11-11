@@ -22,19 +22,19 @@ class Cat
     def find_cat(id)
       Record
         .select(:id, :name, :breed, :favorite_quote)
-        .find_by(id: id)
+        .find_by(id:)
         &.then(&ToCat)
     end
 
     def create_cat(name, breed, favorite_quote)
       Record
-        .create(name: name, breed: breed, favorite_quote: favorite_quote)
+        .create(name:, breed:, favorite_quote:)
         .then(&ToCat)
     end
 
     def update_cat(id, name, breed, favorite_quote)
       Record
-        .update(id, name: name, breed: breed, favorite_quote: favorite_quote)
+        .update(id, name:, breed:, favorite_quote:)
         .then(&ToCat)
     end
 

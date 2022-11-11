@@ -19,7 +19,7 @@ class Cat
 
       cat = repository.update_cat(id, name, breed, favorite_quote)
 
-      Success(result: { cat: cat })
+      Success(result: { cat:})
     end
   end
 end

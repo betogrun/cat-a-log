@@ -7,7 +7,7 @@ class Cat
     def call!
       cats = repository.filter_cats
 
-      Success(result: { cats: cats })
+      Success(result: { cats: })
     end
   end
 end
