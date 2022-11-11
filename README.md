@@ -1,24 +1,37 @@
-# README
+# Cat-a-log
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Simple CRUD application to manage cats using the [u-case](https://github.com/serradura/u-case) gem.
 
-Things you may want to cover:
+### Getting started
 
-* Ruby version
+Follow the steps below to get a development environment running
 
-* System dependencies
+Clone the project
+```
+git clone git@github.com:betogrun/cat-a-log.git && cd cat-a-log
+```
 
-* Configuration
+Create the database and run the migrations
 
-* Database creation
+```
+docker-compose run --rm web bundle exec rails db:create db:migrate db:seed
+```
 
-* Database initialization
+### Running
+```
+docker-compose up
+```
 
-* How to run the test suite
+## Debugging
 
-* Services (job queues, cache servers, search engines, etc.)
+Get the web container id
 
-* Deployment instructions
+```
+docker ps
+```
 
-* ...
+Attach your terminal to the container
+
+```
+docker attach container_id
+```
