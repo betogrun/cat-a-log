@@ -8,6 +8,8 @@
     <%= link_to 'New cat', new_cat_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
+  <%= turbo_stream_from 'cat-creation' %>
+
   <div id="cats" class="min-w-full">
     <% cats.each do |cat| %>
       <%= render(partial: 'cat', locals: { cat: cat }) %>
