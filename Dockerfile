@@ -1,4 +1,4 @@
-FROM ruby:3.1
+FROM ruby:3.1.2
 ENV BUNDLE_PATH /usr/local/bundle
 
 WORKDIR /usr/src/cat-a-log
