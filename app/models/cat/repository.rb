@@ -4,18 +4,13 @@ class Cat
   module Repository
     module_function
 
-    ToCat = ->(record) do
-      ::Cat.new(
-        id: record.id,
-        name: record.name,
-        breed: record.breed,
-        favorite_quote: record.favorite_quote
-      )
-    end
+    ToCat = ->(record) { ::Cat.new(record) }
+    private_constant :ToCat
 
     def filter_cats
       Record
-        .select(:id, :name, :breed, :favorite_quote)
+        .select(:id, :name, :breed, :favorite_quote, :created_at)
+        .order(created_at: :desc)
         .map(&ToCat)
     end
 

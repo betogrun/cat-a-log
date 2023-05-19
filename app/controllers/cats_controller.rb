@@ -25,19 +25,23 @@ class CatsController < ApplicationController
 
   def create
     Cat::Create.call(**cat_params)
-      .on_success { |result| render('cats/show', locals: { cat: result[:cat] }) }
+      .on_success { |result| handle_create(result[:cat]) }
       .on_failure(:invalid_params) do |result|
-      render('cats/new', locals: { errors: result[:errors], cat: Cat::Form.new(cat_params) })
-    end
+        render(
+          turbo_stream: turbo_stream.update('cat-errors', partial: 'cats/form/errors', locals: { errors: result[:errors]})
+        )
+      end
   end
 
   def update
     Cat::Update.call(**cat_params.merge({ id: params[:id] }))
-      .on_success { |result| render('cats/show', locals: { cat: result[:cat] }) }
+      .on_success { |result| render('cats/show', locals: { cat: result[:cat] }, status: :see_other) }
       .on_failure(:not_found) { redirect_to(cats_path, notice: 'Cat not found!') }
       .on_failure(:invalid_params) do |result|
-      render('cats/edit', locals: { errors: result[:errors], cat: Cat::Form.new(cat_params) })
-    end
+        render(
+          turbo_stream: turbo_stream.update('cat-errors', partial: 'cats/form/errors', locals: { errors: result[:errors]})
+        )
+      end
   end
 
   def destroy
@@ -50,5 +54,10 @@ class CatsController < ApplicationController
 
   def cat_params
     params.require(:cat).permit(:name, :breed, :favorite_quote)
+  end
+
+  def handle_create(cat)
+    Turbo::StreamsChannel.broadcast_prepend_to('cat-creation', target: 'cats', partial: 'cats/cat', locals: { cat: })
+    render('cats/show', locals: { cat: }, status: :see_other)
   end
 end
