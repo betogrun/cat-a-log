@@ -34,11 +34,14 @@ services:
     stdin_open: true
     tty: true
     volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
       - .:/usr/src/cat-a-log
       - bundle:/usr/local/bundle
+      - playwright_cache:/root/.cache/ms-playwright
     ports:
       - 3000:3000
     environment:
+      - DISPLAY=:0
       - RAILS_MAX_THREADS=5
       - RAILS_ENV=development
       - RACK_ENV=development
@@ -55,3 +58,4 @@ volumes:
   postgres_data:
   redis_data:
   bundle:
+  playwright_cache:

@@ -1,8 +1,10 @@
 {
   "name": "cat-a-log",
   "version": "1.0.0",
-  "main": "index.js",
   "repository": "git@github.com:betogrun/cat-a-log.git",
   "author": "Alberto Rocha",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.35.1"
+  }
 }
