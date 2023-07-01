@@ -25,6 +25,13 @@ ENV PATH /usr/src/cat-a-log/node_modules/.bin:$PATH
 
 ENV RAILS_ENV development
 
+# Update package lists
+RUN apt-get update
+
+# Install dependencies required for Playwright
+RUN apt-get install -y libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libdbus-1-3 \
+    libxkbcommon0 libatspi2.0-0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2
+
 COPY . .
 
 # Install Node.js dependencies

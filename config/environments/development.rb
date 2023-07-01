@@ -67,4 +67,11 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # When running in a Docker environment, services are accessed by their service
+  # name (defined in the docker-compose file) instead of 'localhost'. This is due
+  # to the way Docker networking works. In this setup, the 'web' service needs to 
+  # be accessible by other services, such as the Playwright service. Therefore,
+  # we add 'web' to the list of allowed hosts.
+  config.hosts << "web"
 end
