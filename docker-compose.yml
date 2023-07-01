@@ -17,8 +17,9 @@ services:
       - 6379:6379
 
   css:
-    build: .
-    entrypoint: ./entrypoint-dev.sh
+    build: 
+      context: .
+      target: development
     tty: true
     command: "bundle exec rails tailwindcss:watch"
     volumes:
@@ -26,8 +27,9 @@ services:
       - bundle:/usr/local/bundle
 
   web:
-    build: .
-    entrypoint: ./entrypoint-dev.sh
+    build: 
+      context: .
+      target: development
     command: bash -c "bundle exec rails s -p 3000 -b '0.0.0.0'"
     stdin_open: true
     tty: true
